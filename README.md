@@ -7,14 +7,18 @@ Follow these steps to set up and run the project locally:
   ```bash
    cd path/to/your/folder
 
-2) run:   ```bash  "git clone https://github.com/Sh1n0a22/communityPage.git"``` 
+2. run:   ```bash  
+"git clone https://github.com/Sh1n0a22/communityPage.git"
 command in your terminal 
 
-3) then go inside repo by running  ```bash "cd communityPage" ```
+3. then go inside repo by running  ```bash "cd communityPage"
+
  in your terminal
 
-4) then you need to install node modules by running ```bash "npm install"  ```
+4. then you need to install node modules by running
+ ```bash "npm install"
 or in your terminal
 
-5) then run ```bash "npm run dev" ```
+5. then run 
+```bash "npm run dev" 
 to run project in dev mode
