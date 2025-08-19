@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import type { Post } from "../../data/mockData";
 import { useRef } from "react";
+import { addComment } from "./modalUtils/postUtils";
 
 
 interface AddCommentModalProps {
@@ -14,30 +15,8 @@ interface AddCommentModalProps {
 export default function AddCommentModal({ CloseModal, isOpened, updatePostData, postId }: AddCommentModalProps) {
     const postContent = useRef<HTMLInputElement>(null)
 
-    const addComment = () => {
-        if (!postId) return;
-        if (!postContent.current?.value.trim()) return; // prevent empty comments
-
-        updatePostData(prevData =>
-            prevData.map(post =>
-                post.id === postId
-                    ? {
-                        ...post,
-                        comments: [
-                            ...post.comments,
-                            {
-                                id: Date.now(),
-                                author: "User",
-                                text: postContent.current!.value,
-                                createdAt: new Date().toISOString(),
-                                replies: [],
-                            },
-                        ],
-                    }
-                    : post
-            )
-        );
-        
+    const handleCommentAdding = () => {
+        addComment({postContent,postId,updatePostData})
         CloseModal();
     };
 
@@ -71,7 +50,7 @@ export default function AddCommentModal({ CloseModal, isOpened, updatePostData, 
                 </Button>
                 <Button
                     type="submit"
-                    onClick={addComment}
+                    onClick={handleCommentAdding}
                     variant="contained"
                     color="primary"
                 >

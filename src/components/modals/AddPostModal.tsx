@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import type { Post } from "../../data/mockData";
 import { useRef } from "react";
+import { addPost } from "./modalUtils/postUtils";
 
 
 interface AddPostModalProps {
@@ -16,22 +17,9 @@ export default function AddPostModal({ updatePostData, CloseModal, isOpened, Pos
   const postImgUrl = useRef<HTMLInputElement>(null)
 
 
-  const addPost = () => {
-   
-  if (postTitle.current && postContent.current) {
-    const postTemplate: Post = {
-      id: Date.now(),
-      img: postImgUrl.current?.value || "", // empty string if no image
-      title: postTitle.current.value,
-      content: postContent.current.value,
-      author: "User",
-      comments: [],
-      createdAt: Date.now().toString()
-    }
-    updatePostData([...PostData, postTemplate])
-  }
-  CloseModal()
-  return
+  const handlePostAdding = () => {
+  addPost({postContent,PostData,postImgUrl,postTitle,updatePostData})
+  return CloseModal()
 }
     return (
       <Dialog
@@ -74,7 +62,7 @@ export default function AddPostModal({ updatePostData, CloseModal, isOpened, Pos
           </Button>
           <Button
             type="submit"
-            onClick={addPost}
+            onClick={handlePostAdding}
             variant="contained"
             color="primary"
           >

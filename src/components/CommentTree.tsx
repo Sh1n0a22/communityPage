@@ -1,29 +1,37 @@
 import { Button } from "@mui/material";
 import type { Comment } from "../data/mockData";
 
+interface CommentTreeProps {
+    comments: Comment[];
+    postId: number;
+    expanded: Record<number, boolean>;
+    toggleReplies: (id: number) => void;
+    handleReplyAdding: (postId: number, commentId: number, replyId?: number) => void;
+    parentAuthor?: string; 
+}
+
 export default function CommentTree({
     comments,
     postId,
     expanded,
     toggleReplies,
     handleReplyAdding,
-}: {
-    comments: Comment[];
-    postId: number;
-    expanded: Record<number, boolean>;
-    toggleReplies: (id: number) => void;
-    handleReplyAdding: (postId: number, commentId: number, replyId?: number) => void;
-}) {
+    parentAuthor,
+}: CommentTreeProps) {
     return (
         <>
             {comments.map(comment => (
-                <div
-                    key={comment.id}
-                    className="mb-4 pl-4 border-l-2 border-gray-300 transition hover:border-blue-400"
-                >
+                <div key={comment.id} className="mb-4">
                     <div className="bg-gray-50 p-3 rounded-md shadow-sm">
                         <p className="font-medium text-gray-800">{comment.author}</p>
-                        <p className="text-gray-700 text-sm">{comment.text}</p>
+                        <p className="text-gray-700 text-sm">
+                            {parentAuthor && (
+                                <span className="text-blue-600 font-medium mr-1">
+                                    @{parentAuthor}
+                                </span>
+                            )}
+                            {comment.text}
+                        </p>
 
                         <div className="flex flex-wrap items-center gap-2 mt-2">
                             <Button
@@ -48,7 +56,7 @@ export default function CommentTree({
                         </div>
                     </div>
 
-                    {expanded[comment.id] && comment.replies && comment.replies.length > 0 && (
+                    {expanded[comment.id] &&comment.replies && comment.replies?.length > 0 && (
                         <div className="mt-2">
                             <CommentTree
                                 comments={comment.replies}
@@ -58,6 +66,7 @@ export default function CommentTree({
                                 handleReplyAdding={(pid, cid, rid) =>
                                     handleReplyAdding(pid, comment.id, rid ?? cid)
                                 }
+                                parentAuthor={comment.author}
                             />
                         </div>
                     )}

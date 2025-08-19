@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { mockPosts, type Post, type Comment } from "../data/mockData";
+import { mockPosts, type Post } from "../data/mockData";
 import { useState } from "react";
 import AddPostModal from "../components/modals/AddPostModal";
 import AddCommentModal from "../components/modals/AddCommentModal";
@@ -35,10 +35,12 @@ export default function CommunityPage() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-4 space-y-8">
-            <div className="flex justify-end">
+        <div className="max-w-xl mx-auto p-2 space-y-6">
+            {/* Top bar */}
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                <h1 className="font-bold text-lg">Community</h1>
                 <Button variant="contained" onClick={() => setIsCreatePostModal(true)}>
-                    Create New Post
+                    +
                 </Button>
             </div>
 
@@ -69,44 +71,77 @@ export default function CommunityPage() {
             {postData.map(post => (
                 <section
                     key={post.id}
-                    className="bg-white shadow-md rounded-lg p-6 space-y-4 transition hover:shadow-lg"
+                    className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm"
                 >
-                    {post.img && <div className="flex justify-center">
-                        <img className="w-full sm:w-fit self-center" src={post.img}  />
-                    </div>}
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <h1 className="text-xl font-bold text-gray-800">{post.title}</h1>
-                        <span className="text-gray-500 text-sm">{post.author}</span>
+                    {/* Post header */}
+                    <div className="flex items-center justify-between px-4 py-3">
+                        <span className="font-semibold text-gray-800">{post.author}</span>
+                        <span className="text-gray-400 text-sm">•••</span>
                     </div>
 
-                    <p className="text-gray-700 leading-relaxed">{post.content}</p>
-                    <Button
-                        variant="outlined"
-                        onClick={() => handleCommentAdding(post.id)}
-                        className="!mt-2"
-                    >
-                        Comment this Post
-                    </Button>
+                    {/* Post image */}
+                    {post.img && (<div className="p-4">
+                        <h2 className="text-black text-start font-semibold text-lg">{post.title}</h2>
+                        <img
+                            className="w-full max-h-[600px] my-4 object-cover"
+                            src={post.img}
+                            alt={post.title}
+                        />
+                        <p className="text-black/70 text-start">{post.content}</p>
+                        </div>
+                    )}
 
-                    <div>
-                        <h2 className="font-semibold mb-2 text-gray-800">Comments</h2>
+                    {/* Action row (text instead of icons) */}
+                    <div className="flex justify-between px-4 py-3 text-sm font-medium text-black" >
+                        <div className="flex gap-4">
+                            <span className="cursor-pointer hover:underline" >Like</span>
+                            <span
+                                className="cursor-pointer hover:underline"
+                                onClick={() => handleCommentAdding(post.id)}
+                            >
+                                Comment
+                            </span>
+                            <span className="cursor-pointer hover:underline">Send</span>
+                        </div>
+                        <span className="cursor-pointer hover:underline">Save</span>
+                    </div>
+
+                    {/* Post content */}
+                    <div className="px-4 space-y-1">
+                        <p className="text-sm">
+                            <span className="font-semibold mr-2">{post.author}</span>
+                            {post.content}
+                        </p>
+
+                        {/* Comments preview */}
                         {post.comments.length > 0 ? (
-                            <CommentTree
-                                comments={post.comments}
-                                postId={post.id}
-                                expanded={expanded}
-                                toggleReplies={toggleReplies}
-                                handleReplyAdding={handleReplyAdding}
-                            />
+                            <>
+                                <p
+                                    className="text-sm text-gray-500 cursor-pointer"
+                                    onClick={() => toggleReplies(post.id)}
+                                >
+                                    View all {post.comments.length} comments
+                                </p>
+                                {expanded[post.id] && (
+                                    <div className="mt-2">
+                                        <CommentTree
+                                            comments={post.comments}
+                                            postId={post.id}
+                                            expanded={expanded}
+                                            toggleReplies={toggleReplies}
+                                            handleReplyAdding={handleReplyAdding}
+                                        />
+                                    </div>
+                                )}
+                            </>
                         ) : (
-                            <p className="text-gray-500 text-sm">
-                                No comments yet. Be the first to comment.
-                            </p>
+                            <p className="text-sm text-gray-400">No comments yet.</p>
                         )}
                     </div>
+
+                    <div className="px-4 py-3 text-xs text-gray-400">2 HOURS AGO</div>
                 </section>
             ))}
         </div>
     );
 }
-
