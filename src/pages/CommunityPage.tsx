@@ -80,8 +80,11 @@ export default function CommunityPage() {
                         <span className="text-gray-400 text-sm">•••</span>
                     </div>
 
+
+
+
                     {/* Post image */}
-                    {post.img && (<div className="p-4">
+                    {post.img ? (<div className="p-4">
                         <h2 className="text-black text-start font-semibold text-lg">{post.title}</h2>
                         <img
                             className="w-full max-h-[600px] my-4 object-cover"
@@ -89,8 +92,11 @@ export default function CommunityPage() {
                             alt={post.title}
                         />
                         <p className="text-black/70 text-start">{post.content}</p>
-                        </div>
-                    )}
+                    </div>
+                    ) : <div className="p-4">
+                        <h2 className="text-black text-start font-semibold text-lg">{post.title}</h2>
+                        <p className="text-black/70 text-start">{post.content}</p>
+                    </div>}
 
                     {/* Action row (text instead of icons) */}
                     <div className="flex justify-between px-4 py-3 text-sm font-medium text-black" >
