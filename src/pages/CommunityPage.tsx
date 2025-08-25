@@ -35,16 +35,11 @@ export default function CommunityPage() {
         setIsCreateReplyModal(true);
     };
 
-    return (
-        <div className="max-w-xl mx-auto p-2 space-y-6">
-            {/* Top bar */}
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                <h1 className="font-bold text-lg">Community</h1>
-                <Button variant="contained" onClick={() => setIsCreatePostModal(true)}>
-                    +
-                </Button>
-            </div>
 
+
+    return (
+        <div className="max-w-2xl rounded-xl mx-auto p-8 space-y-6 bg-gray-950 min-h-screen text-white">
+            {/* Top bar */}
             <AddPostModal
                 PostData={postData}
                 updatePostData={setPostData}
@@ -68,63 +63,63 @@ export default function CommunityPage() {
                 isOpened={isCreateReplyModal}
                 CloseModal={() => setIsCreateReplyModal(false)}
             />
+            <div className="flex justify-between items-center py-2 border-b border-gray-800">
+                <h1 className="font-bold text-lg">Community</h1>
+                <Button sx={{backgroundColor:"#1e40af",fontSize:"20px", width:"fit-content", borderRadius:"199px"}} variant="contained" onClick={() => setIsCreatePostModal(true)}>
+                    +
+                </Button>
+            </div>
 
+            {/* Posts */}
             {postData.map(post => (
                 <section
                     key={post.id}
-                    className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm"
+                    className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-sm"
                 >
                     {/* Post header */}
                     <div className="flex items-center justify-between px-4 py-3">
-                        <span className="font-semibold text-gray-800">{post.author}</span>
-                        <span className="text-gray-400 text-sm">•••</span>
+                        <span className="font-semibold text-white">{post.author}</span>
+                        <span className="text-gray-500 text-sm">•••</span>
                     </div>
 
-
-
-
-                    {/* Post image */}
-                    {post.img ? (<div className="p-4">
-                        <h2 className="text-black text-start font-semibold text-lg">{post.title}</h2>
-                        <img
-                            className="w-full max-h-[600px] my-4 object-cover"
-                            src={post.img}
-                            alt={post.title}
-                        />
-                        <p className="text-black/70 text-start">{post.content}</p>
+                    {/* Post image & content */}
+                    <div className="p-4">
+                        <h2 className="text-white font-semibold text-lg">{post.title}</h2>
+                        {post.img && (
+                            <img
+                                className="w-full max-h-[600px] my-4 object-cover rounded"
+                                src={post.img}
+                                alt={post.title}
+                            />
+                        )}
+                        <p className="text-gray-300">{post.content}</p>
                     </div>
-                    ) : <div className="p-4">
-                        <h2 className="text-black text-start font-semibold text-lg">{post.title}</h2>
-                        <p className="text-black/70 text-start">{post.content}</p>
-                    </div>}
 
-                    {/* Action row (text instead of icons) */}
-                    <div className="flex justify-between px-4 py-3 text-sm font-medium text-black" >
+                    {/* Actions */}
+                    <div className="flex justify-between px-4 py-3 text-sm font-medium text-white/80">
                         <div className="flex gap-4">
-                            <span className="cursor-pointer hover:underline" >Like</span>
+                            <span className="cursor-pointer hover:text-white"><img className="w-6" src="../../public/heart.png" alt="" />
+                            </span>
                             <span
-                                className="cursor-pointer hover:underline"
+                                className="cursor-pointer hover:text-white"
                                 onClick={() => handleCommentAdding(post.id)}
                             >
-                                Comment
+                                <img className="w-6" src="../../public/comment.png" alt="" />
+
                             </span>
-                            <span className="cursor-pointer hover:underline">Send</span>
+                       
                         </div>
-                        <span className="cursor-pointer hover:underline">Save</span>
+                        <span className="cursor-pointer hover:text-white">
+                            <img className="w-6" src="../../public/save.png" alt="" />
+                        </span>
                     </div>
 
-                    {/* Post content */}
+                    {/* Comments */}
                     <div className="px-4 space-y-1">
-                        <p className="text-sm">
-                            <span className="font-semibold mr-2">{post.author}</span>
-                            {post.content}
-                        </p>
-
-                        {/* Comments preview */}
                         {post.comments.length > 0 ? (
                             <>
                                 <p
-                                    className="text-sm text-gray-500 cursor-pointer"
+                                    className="text-sm text-gray-500 cursor-pointer hover:text-gray-300"
                                     onClick={() => toggleReplies(post.id)}
                                 >
                                     View all {post.comments.length} comments
@@ -142,11 +137,11 @@ export default function CommunityPage() {
                                 )}
                             </>
                         ) : (
-                            <p className="text-sm text-gray-400">No comments yet.</p>
+                            <p className="text-sm text-gray-500">No comments yet.</p>
                         )}
                     </div>
 
-                    <div className="px-4 py-3 text-xs text-gray-400">2 HOURS AGO</div>
+                    <div className="px-4 py-3 text-xs text-gray-500">2 HOURS AGO</div>
                 </section>
             ))}
         </div>
