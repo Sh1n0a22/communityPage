@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import type { Post } from "../../data/mockData";
+import type { Post } from "../../db/mockData";
 import { useRef } from "react";
-import { addPost } from "./modalUtils/postUtils";
+import { addPost } from "../../actions/postActions";
 
 
 interface AddPostModalProps {

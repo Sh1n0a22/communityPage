@@ -1,10 +1,11 @@
 import { Button } from "@mui/material";
-import { mockPosts, type Post } from "../data/mockData";
+import { mockPosts } from "../db/mockData";
 import { useState } from "react";
 import AddPostModal from "../components/modals/AddPostModal";
 import AddCommentModal from "../components/modals/AddCommentModal";
 import AddReplyModal from "../components/modals/AddReplyModal";
 import CommentTree from "../components/CommentTree";
+import type { Post } from "../types/StoreTypes";
 
 export default function CommunityPage() {
     const [expanded, setExpanded] = useState<Record<number, boolean>>({});

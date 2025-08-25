@@ -1,20 +1,5 @@
-export interface Comment {
-    id: number;
-    author: string;
-    text: string;
-    createdAt: string;
-    replies?: Comment[];
-}
+import type { Post } from "../types/StoreTypes";
 
-export interface Post {
-    id: number;
-    img?:string,
-    title: string;
-    content: string;
-    author: string;
-    createdAt: string;
-    comments: Comment[];
-}
 
 export const mockPosts: Post[] = [
     {

@@ -1,7 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import type { Post } from "../../data/mockData";
+
 import { useRef } from "react";
-import { addComment } from "./modalUtils/postUtils";
+import { addComment } from "../../actions/postActions";
+import type { Post } from "../../types/StoreTypes";
 
 
 interface AddCommentModalProps {

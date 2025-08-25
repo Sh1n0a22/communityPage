@@ -1,7 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import type { Post } from "../../data/mockData";
+
 import { useRef } from "react";
-import { addReply } from "./modalUtils/postUtils";
+import { addReply } from "../../actions/postActions";
+import type { Post } from "../../types/StoreTypes";
 
 interface AddReplyModalProps {
   updatePostData: React.Dispatch<React.SetStateAction<Post[]>>,

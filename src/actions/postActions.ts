@@ -1,26 +1,7 @@
-import type { Comment, Post } from "../../../data/mockData"
 
-interface AddPostProps {
-    postTitle: React.RefObject<HTMLInputElement | null>
-    postContent: React.RefObject<HTMLInputElement | null>
-    postImgUrl: React.RefObject<HTMLInputElement | null>
-    PostData: Post[],
-    updatePostData: (dataToUpd: Post[]) => void
-}
+import type { AddCommentProps, AddPostProps, AddReplyProps } from "../types/PostTypes";
+import type { Comment, Post } from "../types/StoreTypes";
 
-interface AddReplyProps {
-    replyContent: React.RefObject<HTMLInputElement | null>
-    postId: number | null
-    commentId: number | null
-    updatePostData: React.Dispatch<React.SetStateAction<Post[]>>
-    innerReplyId: number | null,
-}
-
-interface AddCommentProps {
-    postId: number | null
-    postContent: React.RefObject<HTMLInputElement | null>
-    updatePostData:React.Dispatch<React.SetStateAction<Post[]>>
-}
 
 export const addPost = ({ postTitle, postContent, postImgUrl, updatePostData, PostData }: AddPostProps) => {
 

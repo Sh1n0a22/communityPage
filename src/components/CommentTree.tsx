@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
-import type { Comment } from "../data/mockData";
+import type { Comment } from "../types/StoreTypes";
+
 
 interface CommentTreeProps {
     comments: Comment[];
