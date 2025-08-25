@@ -1,15 +1,8 @@
 import { Button } from "@mui/material";
-import type { Comment } from "../types/StoreTypes";
+import type { CommentTreeProps } from "../types/ComentTreeTypes";
 
 
-interface CommentTreeProps {
-    comments: Comment[];
-    postId: number;
-    expanded: Record<number, boolean>;
-    toggleReplies: (id: number) => void;
-    handleReplyAdding: (postId: number, commentId: number, replyId?: number) => void;
-    parentAuthor?: string; 
-}
+
 
 export default function CommentTree({
     comments,
